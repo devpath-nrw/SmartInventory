@@ -89,6 +89,15 @@ public class InventoryApp extends Application {
 
         Scene scene = new Scene(layout, 1000, 650);
 
+
+        scene.getStylesheets().add(
+                java.util.Objects.requireNonNull(
+                        getClass().getResource("/style.css")
+                ).toExternalForm()
+        );
+
+
+
         stage.setTitle("SmartInventory");
         stage.setScene(scene);
         stage.show();

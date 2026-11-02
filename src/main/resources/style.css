@@ -1,0 +1,82 @@
+
+/* SmartInventory - Modern Desktop Design */
+
+.root {
+    -fx-font-family: "Segoe UI", Arial;
+    -fx-font-size: 14px;
+    -fx-background-color: #f4f7fb;
+}
+
+.label {
+    -fx-text-fill: #243247;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-padding: 11 18;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+.button:pressed {
+    -fx-background-color: #1e40af;
+}
+
+/* Product table */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 10;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #e9f0fa;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-padding: 12;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-cell-size: 42px;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f8fafc;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #bfdbfe;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #1e3a8a;
+}
+
+.table-cell {
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10;
+    -fx-border-color: transparent;
+}
+
+/* Input fields */
+.text-field {
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #cbd5e1;
+    -fx-padding: 9;
+}
+
+.text-field:focused {
+    -fx-border-color: #2563eb;
+}
