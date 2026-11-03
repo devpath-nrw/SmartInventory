@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,6 +21,12 @@ public class InventoryApp extends Application {
     private final ProductRepository repository = new ProductRepository();
     private final TableView<Product> table = new TableView<>();
     private final Label status = new Label("Bereit");
+    private final TextField searchField = new TextField();
+    private final javafx.collections.ObservableList<Product> allProducts =
+            FXCollections.observableArrayList();
+    private final FilteredList<Product> filteredProducts =
+            new FilteredList<>(allProducts, product -> true);
+
 
     @Override
     public void start(Stage stage) {
@@ -79,11 +87,40 @@ public class InventoryApp extends Application {
 
         refreshButton.setOnAction(e -> loadProducts());
 
+
         HBox buttons = new HBox(
                 10, addButton, editButton, deleteButton, refreshButton
         );
 
-        VBox layout = new VBox(20, title, buttons, table, status);
+// Suchfeld konfigurieren
+        searchField.setPromptText("Produkt suchen...");
+        searchField.setPrefWidth(300);
+        filteredProducts.setPredicate(product -> true);
+        searchField.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    String search = newValue.toLowerCase().trim();
+
+                    filteredProducts.setPredicate(product ->
+                            product.getName().toLowerCase().contains(search)
+                                    || String.valueOf(product.getId()).contains(search)
+                    );
+                }
+        );
+
+        SortedList<Product> sortedProducts =
+                new SortedList<>(filteredProducts);
+
+        sortedProducts.comparatorProperty().bind(
+                table.comparatorProperty()
+        );
+
+        table.setItems(sortedProducts);
+
+
+        VBox layout = new VBox(
+                20, title, buttons, searchField, table, status
+        );
+
         layout.setPadding(new Insets(25));
         VBox.setVgrow(table, Priority.ALWAYS);
 
@@ -106,17 +143,21 @@ public class InventoryApp extends Application {
     }
 
     // Produkte aus PostgreSQL laden
+
+
     private void loadProducts() {
         try {
-            table.setItems(FXCollections.observableArrayList(
-                    repository.getAllProducts()
-            ));
+            allProducts.setAll(repository.getAllProducts());
+
+
             status.setText("Produkte erfolgreich geladen.");
 
         } catch (SQLException e) {
             showError("Datenbankfehler: " + e.getMessage());
         }
     }
+
+
 
     // Formular zum Hinzufügen und Bearbeiten
     private void showProductForm(Product existing) {
