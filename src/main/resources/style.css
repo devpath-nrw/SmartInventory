@@ -1,82 +1,143 @@
-
-/* SmartInventory - Modern Desktop Design */
-
 .root {
-    -fx-font-family: "Segoe UI", Arial;
-    -fx-font-size: 14px;
-    -fx-background-color: #f4f7fb;
-}
-
-.label {
-    -fx-text-fill: #243247;
-}
-
-/* Buttons */
-.button {
-    -fx-background-color: #2563eb;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-padding: 11 18;
-    -fx-cursor: hand;
-}
-
-.button:hover {
-    -fx-background-color: #1d4ed8;
-}
-
-.button:pressed {
-    -fx-background-color: #1e40af;
-}
-
-/* Product table */
-.table-view {
-    -fx-background-color: white;
-    -fx-background-radius: 10;
-    -fx-border-color: #e2e8f0;
-    -fx-border-radius: 10;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: #e9f0fa;
-}
-
-.table-view .column-header {
-    -fx-background-color: transparent;
-    -fx-padding: 12;
-}
-
-.table-row-cell {
-    -fx-background-color: white;
-    -fx-cell-size: 42px;
-}
-
-.table-row-cell:odd {
-    -fx-background-color: #f8fafc;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #bfdbfe;
-}
-
-.table-row-cell:selected .text {
-    -fx-fill: #1e3a8a;
-}
-
-.table-cell {
-    -fx-alignment: CENTER_LEFT;
+    -fx-font-family: "Segoe UI", "Arial";
+    -fx-background-color: linear-gradient(to bottom, #f8fbff, #eef3f9);
     -fx-padding: 10;
+}
+
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2d3d;
+}
+
+.action-bar {
+    -fx-alignment: center-left;
+}
+
+.button {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 12 22 12 22;
+    -fx-cursor: hand;
     -fx-border-color: transparent;
 }
 
-/* Input fields */
-.text-field {
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
-    -fx-border-color: #cbd5e1;
-    -fx-padding: 9;
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #60a5fa, #3b82f6);
 }
 
-.text-field:focused {
-    -fx-border-color: #2563eb;
+.button:pressed {
+    -fx-background-color: #1d4ed8;
+}
+
+.search-field {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #d6deea;
+    -fx-border-width: 1.5;
+    -fx-padding: 12 14 12 14;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: #9aa6b2;
+}
+
+.search-field:focused {
+    -fx-border-color: #3b82f6;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.20), 10, 0.2, 0, 2);
+}
+
+.product-table {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-radius: 14;
+    -fx-border-color: #dbe4ee;
+    -fx-border-width: 1;
+    -fx-padding: 4;
+}
+
+.product-table .column-header-background {
+    -fx-background-color: #eaf1fb;
+    -fx-background-radius: 12 12 0 0;
+    -fx-padding: 6;
+}
+
+.product-table .column-header,
+.product-table .filler {
+    -fx-background-color: transparent;
+    -fx-size: 44;
+    -fx-border-color: transparent;
+}
+
+.product-table .column-header .label {
+    -fx-text-fill: #1f2d3d;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.product-table .table-row-cell {
+    -fx-background-color: white;
+    -fx-cell-size: 44;
+    -fx-border-color: transparent transparent #edf2f7 transparent;
+}
+
+.product-table .table-row-cell:odd {
+    -fx-background-color: #f8fbff;
+}
+
+.product-table .table-row-cell:selected {
+    -fx-background-color: #dbeafe;
+}
+
+.product-table .table-cell {
+    -fx-text-fill: #243447;
+    -fx-font-size: 14px;
+    -fx-border-color: transparent;
+    -fx-padding: 8 12 8 12;
+}
+
+.product-table .virtual-flow .scroll-bar:vertical,
+.product-table .virtual-flow .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.product-table .virtual-flow .scroll-bar:vertical .thumb,
+.product-table .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-color: #c7d2e0;
+    -fx-background-radius: 10;
+}
+
+.status-label {
+    -fx-text-fill: #334155;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+/* Dashboard */
+.dashboard {
+    -fx-alignment: center-left;
+}
+
+/* Statistik-Karten */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 14;
+    -fx-border-color: #e2e8f0;
+    -fx-border-radius: 14;
+    -fx-padding: 24;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-min-width: 220;
+    -fx-effect: dropshadow(
+        gaussian,
+        rgba(0, 0, 0, 0.07),
+        12, 0.1, 0, 3
+    );
+}
+
+.stat-card:hover {
+    -fx-background-color: #eff6ff;
 }

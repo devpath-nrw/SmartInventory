@@ -21,6 +21,9 @@ public class InventoryApp extends Application {
     private final ProductRepository repository = new ProductRepository();
     private final TableView<Product> table = new TableView<>();
     private final Label status = new Label("Bereit");
+    private final Label productsCard = new Label("Produkte: 0");
+    private final Label stockCard = new Label("Lagerbestand: 0");
+    private final Label valueCard = new Label("Lagerwert: 0,00 €");
     private final TextField searchField = new TextField();
     private final javafx.collections.ObservableList<Product> allProducts =
             FXCollections.observableArrayList();
@@ -32,7 +35,16 @@ public class InventoryApp extends Application {
     public void start(Stage stage) {
 
         Label title = new Label("Smart Inventory Management");
-        title.setStyle("-fx-font-size: 26px; -fx-font-weight: bold;");
+        title.getStyleClass().add("title-label");
+
+
+        HBox dashboard = new HBox(15, productsCard, stockCard, valueCard);
+
+        productsCard.getStyleClass().add("stat-card");
+        stockCard.getStyleClass().add("stat-card");
+        valueCard.getStyleClass().add("stat-card");
+        dashboard.getStyleClass().add("dashboard");
+
 
         // Tabelle erstellen
         TableColumn<Product, Integer> idColumn =
@@ -63,6 +75,8 @@ public class InventoryApp extends Application {
         table.setColumnResizePolicy(
                 TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
         );
+        table.getStyleClass().add("product-table");
+
 
         // Buttons erstellen
         Button addButton = new Button("Produkt hinzufügen");
@@ -91,10 +105,12 @@ public class InventoryApp extends Application {
         HBox buttons = new HBox(
                 10, addButton, editButton, deleteButton, refreshButton
         );
+        buttons.getStyleClass().add("action-bar");
 
 // Suchfeld konfigurieren
         searchField.setPromptText("Produkt suchen...");
         searchField.setPrefWidth(300);
+        searchField.getStyleClass().add("search-field");
         filteredProducts.setPredicate(product -> true);
         searchField.textProperty().addListener(
                 (observable, oldValue, newValue) -> {
@@ -116,10 +132,7 @@ public class InventoryApp extends Application {
 
         table.setItems(sortedProducts);
 
-
-        VBox layout = new VBox(
-                20, title, buttons, searchField, table, status
-        );
+        VBox layout = new VBox(20, title, dashboard, buttons, searchField, table, status);
 
         layout.setPadding(new Insets(25));
         VBox.setVgrow(table, Priority.ALWAYS);
@@ -135,6 +148,7 @@ public class InventoryApp extends Application {
 
 
 
+        status.getStyleClass().add("status-label");
         stage.setTitle("SmartInventory");
         stage.setScene(scene);
         stage.show();
@@ -142,12 +156,31 @@ public class InventoryApp extends Application {
         loadProducts();
     }
 
-    // Produkte aus PostgreSQL laden
 
+    private void updateDashboard() {
+        int totalQuantity = 0;
+        double totalValue = 0;
+
+        for (Product product : allProducts) {
+            totalQuantity += product.getQuantity();
+            totalValue += product.getPrice() * product.getQuantity();
+        }
+
+        productsCard.setText("Produkte: " + allProducts.size());
+        stockCard.setText("Lagerbestand: " + totalQuantity);
+        valueCard.setText(String.format(
+                java.util.Locale.GERMANY,
+                "Lagerwert: %,.2f €",
+                totalValue
+        ));
+    }
+
+    // Produkte aus PostgreSQL laden
 
     private void loadProducts() {
         try {
             allProducts.setAll(repository.getAllProducts());
+            updateDashboard();
 
 
             status.setText("Produkte erfolgreich geladen.");
