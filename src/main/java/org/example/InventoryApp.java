@@ -38,11 +38,20 @@ public class InventoryApp extends Application {
         title.getStyleClass().add("title-label");
 
 
-        HBox dashboard = new HBox(15, productsCard, stockCard, valueCard);
+        VBox card1 = new VBox(8, new Label("Produkte"), productsCard);
+        VBox card2 = new VBox(8, new Label("Lagerbestand"), stockCard);
+        VBox card3 = new VBox(8, new Label("Lagerwert"), valueCard);
 
-        productsCard.getStyleClass().add("stat-card");
-        stockCard.getStyleClass().add("stat-card");
-        valueCard.getStyleClass().add("stat-card");
+        card1.getStyleClass().add("stat-card");
+        card2.getStyleClass().add("stat-card");
+        card3.getStyleClass().add("stat-card");
+
+        productsCard.getStyleClass().add("stat-value");
+        stockCard.getStyleClass().add("stat-value");
+        valueCard.getStyleClass().add("stat-value");
+
+
+        HBox dashboard = new HBox(15, card1, card2, card3);
         dashboard.getStyleClass().add("dashboard");
 
 
@@ -83,6 +92,12 @@ public class InventoryApp extends Application {
         Button editButton = new Button("Produkt bearbeiten");
         Button deleteButton = new Button("Produkt löschen");
         Button refreshButton = new Button("Aktualisieren");
+
+        addButton.getStyleClass().add("primary-button");
+        editButton.getStyleClass().add("secondary-button");
+        deleteButton.getStyleClass().add("danger-button");
+        refreshButton.getStyleClass().add("refresh-button");
+
 
         addButton.setOnAction(e -> showProductForm(null));
 
@@ -166,13 +181,20 @@ public class InventoryApp extends Application {
             totalValue += product.getPrice() * product.getQuantity();
         }
 
-        productsCard.setText("Produkte: " + allProducts.size());
-        stockCard.setText("Lagerbestand: " + totalQuantity);
+        productsCard.setText(String.valueOf(allProducts.size()));
+        stockCard.setText(String.valueOf(totalQuantity));
         valueCard.setText(String.format(
                 java.util.Locale.GERMANY,
-                "Lagerwert: %,.2f €",
+                "%,.2f €",
                 totalValue
         ));
+
+        valueCard.setText(String.format(
+                java.util.Locale.GERMANY,
+                "%,.2f €",
+                totalValue
+        ));
+
     }
 
     // Produkte aus PostgreSQL laden

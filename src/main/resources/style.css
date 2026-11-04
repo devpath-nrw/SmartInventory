@@ -141,3 +141,52 @@
 .stat-card:hover {
     -fx-background-color: #eff6ff;
 }
+
+/* Hauptaktion */
+.primary-button {
+    -fx-background-color: #2563eb;
+    -fx-text-fill: white;
+}
+
+.primary-button:hover {
+    -fx-background-color: #1d4ed8;
+}
+
+/* Normale Aktionen */
+.secondary-button {
+    -fx-background-color: #e2e8f0;
+    -fx-text-fill: #334155;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #cbd5e1;
+}
+
+/* Gefährliche Aktion */
+.danger-button {
+    -fx-background-color: #dc2626;
+    -fx-text-fill: white;
+}
+
+.danger-button:hover {
+    -fx-background-color: #b91c1c;
+}
+.refresh-button {
+    -fx-background-color: #0f766e;
+    -fx-text-fill: white;
+}
+
+.refresh-button:hover {
+    -fx-background-color: #115e59;
+}
+
+.stat-card {
+    -fx-min-width: 220;
+    -fx-min-height: 110;
+}
+
+.stat-value {
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0f172a;
+}
