@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+
 
 /**
  * SmartInventory: JavaFX-Oberfläche für die vorhandene PostgreSQL-Anwendung.
@@ -271,7 +271,11 @@ public class InventoryApp extends Application {
                 new ReadOnlyObjectWrapper<>(data.getValue().getQuantity()));
         quantityColumn.getStyleClass().add("number-column");
 
-        table.getColumns().addAll(idColumn, nameColumn, priceColumn, quantityColumn);
+        table.getColumns().add(idColumn);
+        table.getColumns().add(nameColumn);
+        table.getColumns().add(priceColumn);
+        table.getColumns().add(quantityColumn);
+
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
         table.getStyleClass().add("product-table");
         table.setPlaceholder(new Label("Keine Produkte gefunden."));
